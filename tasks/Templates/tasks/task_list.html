@@ -8,16 +8,14 @@
     <div class="container">
         <h2>Task List</h2>
         
-        <!-- Filter Form -->
         <form method="get" action="{% url 'task_list' %}" class="mb-3">
             <div class="form-group">
                 <label for="status">Filter by Status:</label>
                 <select name="status" id="status" class="form-control" onchange="this.form.submit()">
                     <option value="">All</option>
-                    <option value="P" {% if request.GET.status == 'not_started' %}selected{% endif %}>Not Started</option>
-                    <option value="C" {% if request.GET.status == 'in_progress' %}selected{% endif %}>In Progress</option>
-                    <option value="C" {% if request.GET.status == 'completed' %}selected{% endif %}>Completed</option>
-
+                    <option value="not_started" {% if request.GET.status == 'not_started' %}selected{% endif %}>Not Started</option>
+                    <option value="in_progress" {% if request.GET.status == 'in_progress' %}selected{% endif %}>In Progress</option>
+                    <option value="completed" {% if request.GET.status == 'completed' %}selected{% endif %}>Completed</option>
                 </select>
             </div>
         </form>
@@ -29,7 +27,8 @@
                     <h5>{{ task.title }}</h5>
                     <p>{{ task.description }}</p>
                     <p>Status: {{ task.get_status_display }}</p>
-                    <!-- Delete Confirmation Link -->
+                    <!-- Update and Delete Buttons -->
+                    <a href="{% url 'task_update' task.id %}" class="btn btn-secondary btn-sm">Update</a>
                     <a href="{% url 'task_delete' task.id %}" class="btn btn-danger btn-sm">Delete</a>
                 </li>
             {% empty %}

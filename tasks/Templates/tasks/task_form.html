@@ -1,33 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Create Task</title>
+    <title>{% if task %}Update Task{% else %}Create Task{% endif %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container">
-        <h2>Create Task</h2>
-        <form method="post" action="{% url 'task_create' %}">
+        <h2>{% if task %}Update Task{% else %}Create Task{% endif %}</h2>
+        <form method="post" action="{% if task %}{% url 'task_update' task.id %}{% else %}{% url 'task_create' %}{% endif %}">
             {% csrf_token %}
             <div class="form-group">
                 <label for="title">Title:</label>
-                <input type="text" name="title" id="title" class="form-control" required>
+                <input type="text" name="title" id="title" class="form-control" value="{% if task %}{{ task.title }}{% endif %}" required>
             </div>
             <div class="form-group">
                 <label for="description">Description:</label>
-                <textarea name="description" id="description" class="form-control" required></textarea>
+                <textarea name="description" id="description" class="form-control" required>{% if task %}{{ task.description }}{% endif %}</textarea>
             </div>
             <div class="form-group">
                 <label for="status">Status:</label>
                 <select name="status" id="status" class="form-control">
-                    <option value="not_started">Not Started</option>
-                    <option value="in_progress">In Progress</option>
-                    <option value="completed">Completed</option>
-
-                   
+                    <option value="not_started" {% if task and task.status == 'not_started' %}selected{% endif %}>Not Started</option>
+                    <option value="in_progress" {% if task and task.status == 'in_progress' %}selected{% endif %}>In Progress</option>
+                    <option value="completed" {% if task and task.status == 'completed' %}selected{% endif %}>Completed</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Create Task</button>
+            <button type="submit" class="btn btn-primary">{% if task %}Update Task{% else %}Create Task{% endif %}</button>
         </form>
         <a href="{% url 'task_list' %}" class="btn btn-secondary mt-2">Back to Task List</a>
     </div>
