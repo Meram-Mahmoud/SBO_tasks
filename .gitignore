@@ -1,0 +1,45 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Django-specific
+*.log
+local_settings.py
+db.sqlite3
+media/
+staticfiles/
+
+# Environment files
+.env
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Virtual environment
+venv/
+env/
+
+# Coverage reports
+coverage.xml
+*.cover
+*.py,cover
+nosetests.xml
+test_*.xml
+*.log
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+.pytype/
+
+# pytest
+.cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
